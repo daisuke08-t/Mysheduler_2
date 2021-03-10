@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myscheduler2.databinding.FragmentFirstBinding
 import io.realm.Realm
+import io.realm.kotlin.where
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -39,6 +41,12 @@ class FirstFragment : Fragment() {
         view.findViewById<Button>(R.id.button_first).setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
+
+        (activity as? MainActivity)?.setFabVisible(View.VISIBLE)
+        binding.list.layoutManager = LinearLayoutManager(context)
+        val schedules = realm.where<Schedule>().findAll()
+        val adapter = ScheduleAdapter(schedules)
+        binding.list.adapter = adapter
     }
 
     override fun onDestroyView() {

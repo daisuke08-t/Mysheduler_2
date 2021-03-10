@@ -1,6 +1,5 @@
 package com.example.myscheduler2
 
-import android.content.Context
 import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.realm.OrderedRealmCollection
 import io.realm.RealmRecyclerViewAdapter
 
-class ScheduleAdapter(context: Context, data: OrderedRealmCollection<Schedule>) :
+class ScheduleAdapter(data: OrderedRealmCollection<Schedule>) :
 RealmRecyclerViewAdapter<Schedule, ScheduleAdapter.ViewHolder>(data, true){
 
     init {
@@ -22,7 +21,7 @@ RealmRecyclerViewAdapter<Schedule, ScheduleAdapter.ViewHolder>(data, true){
         val title: TextView = cell.findViewById(android.R.id.text2)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleAdapter.ViewHolder {
-        val inflater = LayoutInflater.from(context)
+        val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(android.R.layout.simple_list_item_2, parent, false)
         return ViewHolder(view)
     }
