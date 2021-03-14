@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,6 +48,15 @@ class FirstFragment : Fragment() {
         val schedules = realm.where<Schedule>().findAll()
         val adapter = ScheduleAdapter(schedules)
         binding.list.adapter = adapter
+
+        adapter.setOnItemClickListener {
+            id ->
+            id?.let {
+                //FirstFragmentDirectionsの代替え措置 → Build ReBuild Projectでクラス生成できる
+                val action = bundleOf("itemId" to it)
+                findNavController().navigate(R.id.action_to_scheduleEditFragment, action)
+            }
+        }
     }
 
     override fun onDestroyView() {
